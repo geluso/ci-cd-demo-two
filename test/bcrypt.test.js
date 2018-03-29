@@ -1,6 +1,9 @@
 const bcrypt = require('bcrypt')
 
 describe('Password Hashing', () => {
+  test('failure test', () => {
+    expect(true).toEqual(true);
+  });
   test('bcrypt matches correct password', () => {
     return new Promise((resolve, reject)=> {
       let password = 'elephant'
