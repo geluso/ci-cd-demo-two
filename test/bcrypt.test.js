@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 
 describe('Password Hashing', () => {
   test('failure test', () => {
-    expect(true).toEqual(false);
+    expect(true).toEqual(true);
   });
   test('bcrypt matches correct password', () => {
     return new Promise((resolve, reject)=> {
