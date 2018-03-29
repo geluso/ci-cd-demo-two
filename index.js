@@ -14,8 +14,8 @@ const PASSWORD = 'opensesame';
 app.get('/', (req, res) => {
   res.write('<h1>Welcome!</h1>');
   let date = new Date();
-  if (date.getDay() === 28 && date.getMonth() === 3) {
-    res.write('<h2>Happy birthay Mitch!</h2>');
+  if (date.getDate() === 28 && date.getMonth() === 3 - 1) {
+    res.write('<h2>Happy birthday Mitch!</h2>');
   }
   res.write('<p>Try to access <a href="/secret">/secret</a> to see a secret recipe!</p>');
   res.send();
