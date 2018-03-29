@@ -12,7 +12,12 @@ const USERNAME = 'admin';
 const PASSWORD = 'opensesame';
 
 app.get('/', (req, res) => {
-  res.send('Welcome! Try to access <a href="/secret">/secret</a> to see a secret recipe!');
+  res.send('<h1>Welcome!</h1>');
+  let date = new Date();
+  if (date.getDay() === 28 && date.getMonth() === 3) {
+    res.send('<h2>Happy birthay Mitch!</h2>');
+  }
+  res.send('<p>Try to access <a href="/secret">/secret</a> to see a secret recipe!</p>');
 });
 
 app.get('/secret', (req, res) => {
