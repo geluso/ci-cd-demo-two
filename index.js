@@ -4,9 +4,9 @@ const express = require('express');
 const app = express();
 
 // connect MongoDB to MLabs after simpler proven deployment
-// const mongoose = require('mongoose');
-// mongoose.connect(process.env.MONGODB_URI);
-// const User = require('./models/user');
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI);
+const User = require('./models/user');
 
 const USERNAME = 'admin';
 const PASSWORD = 'opensesame';
@@ -35,40 +35,35 @@ app.get('/secret', (req, res) => {
   let decoded = Buffer.from(payload, 'base64').toString();
   let [username, password] = decoded.split(':');
 
-  // console.log('username/password:', username, password);
-  // User.findOne({username: username})
-  // .then(user => {
-  //   console.log('found user:', user);
-  //   if (username === user.username && password === user.passwordHash) {
-  //     res.send('Secret Recipe.');
-  //   } else {
-  //     res.send('Incorrect username or password.');
-  //   }
-  // });
-  if (username === user.username && password === user.passwordHash) {
-    res.send('Secret Recipe.');
-  } else {
-    res.send('Incorrect username or password.');
-  }
+  console.log('username/password:', username, password);
+  User.findOne({username: username})
+  .then(user => {
+    console.log('found user:', user);
+    if (username === user.username && password === user.passwordHash) {
+      res.send('Secret Recipe.');
+    } else {
+      res.send('Incorrect username or password.');
+    }
+  });
 });
 
 // deletes ALL users currently in the database
-//User.remove()
-//.then(() => {
-//  // create a new Admin user
-//  let admin = new User({
-//    username: USERNAME,
-//    email: 'admin@admin.com',
-//    passwordHash: PASSWORD
-//  });
-//  // save it
-//  return admin.save();
-//})
-//.then(() => {
+User.remove()
+.then(() => {
+  // create a new Admin user
+  let admin = new User({
+    username: USERNAME,
+    email: 'admin@admin.com',
+    passwordHash: PASSWORD
+  });
+  // save it
+  return admin.save();
+})
+.then(() => {
   // once everything is deleted and the admin is saved
   // then actually start the server
   const PORT = process.env.PORT;
   app.listen(PORT, () => {
     console.log('http://localhost:' + PORT);
   });
-//});
+});
